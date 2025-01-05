@@ -57,7 +57,7 @@ if remain < 20:
     email["To"] = ", ".join(receiver_emails)
 
     # Send the email
-    smtp_server = "smtp.ym.163.com"
+    smtp_server = "smtphz.qiye.163.com"
     smtp_port = 25
     smtp_username = os.environ.get("SMTP_USERNAME")
     smtp_password = os.environ.get("SMTP_PASSWORD")
