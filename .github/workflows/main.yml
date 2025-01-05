@@ -12,13 +12,17 @@ jobs:
       - name: Setup
         uses: actions/setup-python@v4
         with:
-            python-version: "3.10"
+          python-version: "3.10"
       - name: Install
         run:
           pip install -r requirements.txt
       - name: Run
         env:
-            URL: ${{secrets.URL}}
+          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+          RECEIVER_EMAILS: ${{ secrets.RECEIVER_EMAILS }}
+          URL: ${{secrets.URL}}
         run: |
           python main.py
       - name: git config
