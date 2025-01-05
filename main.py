@@ -47,8 +47,6 @@ Path("data.js").write_text("data=" + originstring)
 
 # Send email if remaining electricity is below 5
 if remain < 20:
-    sender_email = "electricity@zyqswebsite.tk"
-    receiver_emails = ["bestzyq@foxmail.com", "1162358837@qq.com", "2776820836@qq.com", "1305955806@qq.com"]
     subject = "低电量提醒"
     message = f"剩余电量不足20度，请及时充电。剩余电量：{remain} kWh."
 
@@ -61,8 +59,13 @@ if remain < 20:
     # Send the email
     smtp_server = "smtp.ym.163.com"
     smtp_port = 25
-    smtp_username = "electricity@zyqswebsite.tk"
-    smtp_password = "electricity"
+    smtp_username = os.environ.get("SMTP_USERNAME")
+    smtp_password = os.environ.get("SMTP_PASSWORD")
+    sender_email = os.environ.get("SENDER_EMAIL")
+    receiver_emails = os.environ.get("RECEIVER_EMAILS", "").split(",")
+
+    if not all([smtp_username, smtp_password, sender_email, receiver_emails]):
+        raise ValueError("Missing required environment variables")
 
     with smtplib.SMTP(smtp_server, smtp_port) as server:
         server.starttls()
