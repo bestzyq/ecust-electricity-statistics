@@ -90,7 +90,7 @@
     });
     table.appendChild(headerRow);
 
-    const last8Days = data.slice(-8).reverse();
+    const last8Days = data.slice(-30).reverse();
     let total7Days = 0;
     let totalCost7Days = 0;
 
@@ -119,7 +119,7 @@
         costCell.textContent = '-';
       } else {
         const cost = usage * PRICE;
-        costCell.textContent = cost;
+        costCell.textContent = cost.toFixed(2);
         total7Days += usage;
         totalCost7Days += cost;
       }
