@@ -132,7 +132,7 @@
     const totalRow7Days = document.createElement('tr');
     totalRow7Days.innerHTML = `<td><b>近7日合计</b></td>
                                <td><b>${total7Days.toFixed(2)}</b></td>
-                               <td><b>${totalCost7Days}</b></td>`;
+                               <td><b>${totalCost7Days.toFixed(2)}</b></td>`;
     table.appendChild(totalRow7Days);
 
     // 通用合计函数
@@ -147,11 +147,11 @@
     };
 
     const addTotalRow = (label, usage) => {
-      const cost = Math.round(usage * PRICE / 10) * 10;
+      const cost = usage * PRICE;
       const row = document.createElement('tr');
       row.innerHTML = `<td><b>${label}</b></td>
                        <td><b>${usage.toFixed(2)}</b></td>
-                       <td><b>${cost}</b></td>`;
+                       <td><b>${cost.toFixed(2)}</b></td>`;
       table.appendChild(row);
     };
 
