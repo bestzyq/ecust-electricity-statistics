@@ -14,8 +14,16 @@
 
 ![删除 AbsoluteX 的数据](https://user-images.githubusercontent.com/88281489/205482133-a769645f-e106-453b-9fb1-09ec95664236.png)
 
-4. Settings - Secrets and variables - Actions - New repository secret
-* Name 填写 `URL`，Secret 填写 第一步复制的链接
+4. Settings - Secrets and variables - Actions - New repository secret，依次添加以下密钥：
+
+| Name | Secret | 说明 |
+|------|--------|------|
+| `URL` | 第一步复制的链接 | **必填** |
+| `SMTP_USERNAME` | 邮箱登录用户名 | 低电量邮件通知（可选，需与 SMTP_PASSWORD 同时配置） |
+| `SMTP_PASSWORD` | 邮箱登录密码 | 低电量邮件通知（可选） |
+| `SENDER_EMAIL` | 发件人邮箱地址 | 低电量邮件通知（可选） |
+| `RECEIVER_EMAILS` | 收件人邮箱，多个用**英文逗号**分隔 | 如 `a@qq.com,b@qq.com`（可选） |
+| `DATA_RETENTION_DAYS` | 数据保留天数 | 可选，默认为 `30` |
 
 ![找到 Secrets](https://user-images.githubusercontent.com/88281489/205481390-292a3fc3-fa69-4c2f-886c-b0bc573f5470.png)
 ![填写](https://user-images.githubusercontent.com/88281489/205481486-3b5cafc9-f00d-4ca3-a0d8-eaedfffff7df.png)
@@ -26,7 +34,7 @@
 
 ![选择权限](https://user-images.githubusercontent.com/88281489/229278162-e65383df-17a4-4b66-8981-5fc23d2413a7.png)
 
-6. Actions - enable them，然后在 AutoRecord 下点击 Enable workflow
+6. Actions - enable them，然后在 Record 下点击 Enable workflow（Notify 是低电量邮件通知，可选开启）
 
 ![image](https://user-images.githubusercontent.com/88281489/229278566-17ec1798-5e26-4c42-8f82-91386955d4fc.png)
 ![image](https://user-images.githubusercontent.com/88281489/205481894-022e114f-5023-45d5-881d-d5fbc9d4a6ba.png)

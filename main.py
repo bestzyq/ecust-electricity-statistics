@@ -5,8 +5,6 @@ import datetime
 import os
 import requests
 import re
-import smtplib
-from email.mime.text import MIMEText
 
 # Retrieve data from the specified URL
 url = os.environ.get('URL').strip()
@@ -42,32 +40,10 @@ if len(data) != 0 and date in data[-1].values():
 else:
     data.append({"time": date, "kWh": remain})
 
+# Trim data to retention days (default 30)
+retention_days = int(os.environ.get('DATA_RETENTION_DAYS', '30'))
+if len(data) > retention_days:
+    data = data[-retention_days:]
+
 originstring = json.dumps(data, indent=4, ensure_ascii=False)
 Path("data.js").write_text("data=" + originstring)
-
-# Send email if remaining electricity is below 5
-if remain < 20:
-    sender_email = os.environ.get("SENDER_EMAIL")
-    receiver_emails = os.environ.get("RECEIVER_EMAILS", "").split(",")
-    subject = "低电量提醒"
-    message = f"剩余电量不足20度，请及时充电。剩余电量：{remain} kWh."
-
-    # Create a plain text email message
-    email = MIMEText(message)
-    email["Subject"] = subject
-    email["From"] = sender_email
-    email["To"] = ", ".join(receiver_emails)
-
-    # Send the email
-    smtp_server = "smtphz.qiye.163.com"
-    smtp_port = 25
-    smtp_username = os.environ.get("SMTP_USERNAME")
-    smtp_password = os.environ.get("SMTP_PASSWORD")
-
-    if not all([smtp_username, smtp_password, sender_email, receiver_emails]):
-        raise ValueError("Missing required environment variables")
-
-    with smtplib.SMTP(smtp_server, smtp_port) as server:
-        server.starttls()
-        server.login(smtp_username, smtp_password)
-        server.send_message(email)
